@@ -63,6 +63,14 @@ public class Proyecto implements Serializable {
 
     public Proyecto() {}
 
+    /** Agrega un hito al proyecto y deja ambos lados de la relación sincronizados. */
+    public void agregarHito(Hito hito) {
+        if (!listaHitos.contains(hito)) {
+            listaHitos.add(hito);
+        }
+        hito.setProyecto(this);
+    }
+    
     public Proyecto(Long id, String titulo, String descripcion, String categoria, int cantidadFreelancer, EstadoProyecto estado, LocalDate fechaCreacion, String contacto) {
         this.id = id;
         this.titulo = titulo;
