@@ -20,59 +20,78 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Postulacion implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id_postulacion")
     private Long id;
-    
+
     @Column(name = "mensaje", nullable = false)
     private String mensaje;
-    
+
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
-    
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado_verificacion", nullable = false)
+    @Column(name = "estado", nullable = false)
     private EstadoPostulacion estadoPostulacion;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_usuario")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_proyecto")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_proyecto", nullable = false)
     private Proyecto proyecto;
 
-    public Postulacion() {}
+    public Postulacion() {
+    }
 
-    public Postulacion(Long id, String mensaje, LocalDate fecha, EstadoPostulacion estadoPostulacion) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+
+    public EstadoPostulacion getEstadoPostulacion() {
+        return estadoPostulacion;
+    }
+
+    public void setEstadoPostulacion(EstadoPostulacion estadoPostulacion) {
         this.estadoPostulacion = estadoPostulacion;
     }
 
-    public Postulacion(String mensaje, LocalDate fecha, EstadoPostulacion estadoPostulacion) {
-        this.mensaje = mensaje;
-        this.fecha = fecha;
-        this.estadoPostulacion = estadoPostulacion;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-    public String getMensaje() {return mensaje;}
-    public void setMensaje(String mensaje) {this.mensaje = mensaje;}
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
 
-    public LocalDate getFecha() {return fecha;}
-    public void setFecha(LocalDate fecha) {this.fecha = fecha;}
-
-    public EstadoPostulacion getEstadoPostulacion() {return estadoPostulacion;}
-    public void setEstadoPostulacion(EstadoPostulacion estadoPostulacion) {this.estadoPostulacion = estadoPostulacion;}
-
-    public Usuario getUsuario() {return usuario;}
-    public void setUsuario(Usuario usuario) {this.usuario = usuario;}
-
-    public Proyecto getProyecto() {return proyecto;}
-    public void setProyecto(Proyecto proyecto) {this.proyecto = proyecto;}
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
+    }
 }

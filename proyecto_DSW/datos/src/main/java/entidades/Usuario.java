@@ -2,6 +2,7 @@ package entidades;
 
 import enumeradores.EstadoVerificacion;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,54 +49,65 @@ public class Usuario implements Serializable {
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
-//    @Column(name = "numero_cedula", nullable = false)
-//    private String numeroCedulaProfesional;
-//    
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "estado_verificacion", nullable = false)
-//    private EstadoVerificacion estadoVerificacion;
     @Column(name = "numero_cedula")
     private String numeroCedulaProfesional;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado_verificacion")
     private EstadoVerificacion estadoVerificacion;
-    
-    @OneToMany(mappedBy = "usuario")
-    private List<Postulacion> postulacion;
 
+    /**
+     * Postulaciones que este usuario ha enviado (como freelancer).
+     */
     @OneToMany(mappedBy = "usuario")
-    private List<Aportacion> aportacion;
+    private List<Postulacion> postulacion = new ArrayList<>();
 
+    /**
+     * Aportaciones que este usuario ha hecho a proyectos.
+     */
     @OneToMany(mappedBy = "usuario")
-    private List<Proyecto> proyecto;
+    private List<Aportacion> aportacion = new ArrayList<>();
+
+    /**
+     * Proyectos que este usuario ha publicado (como cliente / dueño).
+     */
+    @OneToMany(mappedBy = "usuario")
+    private List<Proyecto> proyecto = new ArrayList<>();
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String correo, String contrasenia, String telefono, String numeroCedulaProfesional, EstadoVerificacion estadoVerificacion) {
-        this.id = id;
-        this.nombres = nombres;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.nombreUsuario = nombreUsuario;
-        this.correo = correo;
-        this.contrasenia = contrasenia;
-        this.telefono = telefono;
-        this.numeroCedulaProfesional = numeroCedulaProfesional;
-        this.estadoVerificacion = estadoVerificacion;
+    /**
+     * Agrega un proyecto publicado por este usuario y deja ambos lados
+     * sincronizados.
+     */
+    public void agregarProyecto(Proyecto p) {
+        if (!proyecto.contains(p)) {
+            proyecto.add(p);
+        }
+        p.setUsuario(this);
     }
 
-    public Usuario(String nombres, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String correo, String contrasenia, String telefono, String numeroCedulaProfesional, EstadoVerificacion estadoVerificacion) {
-        this.nombres = nombres;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.nombreUsuario = nombreUsuario;
-        this.correo = correo;
-        this.contrasenia = contrasenia;
-        this.telefono = telefono;
-        this.numeroCedulaProfesional = numeroCedulaProfesional;
-        this.estadoVerificacion = estadoVerificacion;
+    /**
+     * Agrega una postulación enviada por este usuario y deja ambos lados
+     * sincronizados.
+     */
+    public void agregarPostulacion(Postulacion p) {
+        if (!postulacion.contains(p)) {
+            postulacion.add(p);
+        }
+        p.setUsuario(this);
+    }
+
+    /**
+     * Agrega una aportación hecha por este usuario y deja ambos lados
+     * sincronizados.
+     */
+    public void agregarAportacion(Aportacion a) {
+        if (!aportacion.contains(a)) {
+            aportacion.add(a);
+        }
+        a.setUsuario(this);
     }
 
     public Long getId() {

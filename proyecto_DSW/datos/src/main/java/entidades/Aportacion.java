@@ -17,45 +17,77 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Aportacion implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id_aportacion")
     private Long id;
-    
+
     @Column(name = "monto", nullable = false)
     private double monto;
-    
+
     @Column(name = "comision", nullable = false)
     private double comisionPlataforma;
-    
+
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_usuario")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_proyecto")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_proyecto", nullable = false)
     private Proyecto proyecto;
 
-    public Aportacion() {}
+    public Aportacion() {
+    }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+    public Long getId() {
+        return id;
+    }
 
-    public LocalDate getFecha() {return fecha;}
-    public void setFecha(LocalDate fecha) {this.fecha = fecha;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public double getMonto() {return monto;}
-    public void setMonto(double monto) {this.monto = monto;}
+    public LocalDate getFecha() {
+        return fecha;
+    }
 
-    public double getComisionPlataforma() {return comisionPlataforma;}
-    public void setComisionPlataforma(double comisionPlataforma) {this.comisionPlataforma = comisionPlataforma;}
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
 
-    public Usuario getUsuario() {return usuario;}
-    public void setUsuario(Usuario usuario) {this.usuario = usuario;}
+    public double getMonto() {
+        return monto;
+    }
 
-    public Proyecto getProyecto() {return proyecto;}
-    public void setProyecto(Proyecto proyecto) {this.proyecto = proyecto;}
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+
+    public double getComisionPlataforma() {
+        return comisionPlataforma;
+    }
+
+    public void setComisionPlataforma(double comisionPlataforma) {
+        this.comisionPlataforma = comisionPlataforma;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
+    }
 }
