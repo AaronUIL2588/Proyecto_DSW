@@ -8,8 +8,15 @@
     </parent>
     <artifactId>negocio</artifactId>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>equipo_dsw</groupId>
+            <artifactId>datos</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
     <properties>
         <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>equipo_dsw.negocio.Negocio</exec.mainClass>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
