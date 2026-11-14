@@ -11,9 +11,9 @@ import entidades.Usuario;
 import enumeradores.EstadoProyecto;
 import java.util.List;
 import repositorios.AportacionRepositorio;
-import repositorios.IAportacionRepositorio;
-import repositorios.IProyectoRepositorio;
-import repositorios.IUsuarioRepositorio;
+import interfaces.IAportacionRepositorio;
+import interfaces.IProyectoRepositorio;
+import interfaces.IUsuarioRepositorio;
 import repositorios.ProyectoRepositorio;
 import repositorios.UsuarioRepositorio;
 

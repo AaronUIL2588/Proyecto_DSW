@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package repositorios;
 
 import java.util.function.Consumer;
@@ -9,17 +5,19 @@ import java.util.function.Function;
 import javax.persistence.EntityManager;
 
 /**
- * Código común de los repositorios: abrir el EntityManager, manejar la
- * transacción y cerrarlo siempre. Así cada repositorio solo escribe lo que lo
- * hace distinto.
+ * Clase abstracta utilizada en los repositorios del programa. Trabaja con
+ * la clase Conexion para hacer uso de los EntityManager.
  *
  * @author Felix_isq
  */
 public abstract class RepositorioBase {
-
     /**
-     * Ejecuta una operación que modifica datos dentro de una transacción (con
-     * rollback si falla).
+     * Método utilizado para realizar operaciones que modifiquen la información
+     * de la base de datos. Utiliza la interfaz funcional Consumer, la cual
+     * recibe un objeto del tipo T (generico), en este caso, EntityManager,
+     * para realizar operaciones sin necesidad de devolver algún resultado.
+     * 
+     * @param accion 
      */
     protected void ejecutar(Consumer<EntityManager> accion) {
         EntityManager em = Conexion.crearEntityManager();

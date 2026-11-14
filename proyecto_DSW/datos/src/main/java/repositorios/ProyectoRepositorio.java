@@ -4,6 +4,7 @@
  */
 package repositorios;
 
+import interfaces.IProyectoRepositorio;
 import entidades.Proyecto;
 import enumeradores.EstadoProyecto;
 import java.util.List;

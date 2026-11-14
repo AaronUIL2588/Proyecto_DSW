@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package repositorios;
 
 import javax.persistence.EntityManager;
@@ -9,29 +5,34 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * Punto único de conexión a la base de datos. Crea una sola vez la fábrica de
- * JPA (unidad de persistencia "ConexionJPA", definida en persistence.xml) y de
- * ahí salen todos los EntityManager que usan los repositorios.
+ * Clase que sirve como punto único de conexión a la base de datos. Crea una
+ * sola vez la fábrica de JPA (unidad de persistencia "ConexionJPA", definida
+ * en persistence.xml) y hace uso de la misma para crear el EntityManager
+ * necesario para las clases de repositorios.
  *
  * @author Felix_isq
  */
 public final class Conexion {
 
+    // Fabrica creada e inicializada para utilizarse en la creación del EntityManager
+    // (final permite que su valor no pueda modificarse, static que pueda
+    //  usarse sin crear un objeto nuevo)
     private static final EntityManagerFactory FABRICA
             = Persistence.createEntityManagerFactory("ConexionJPA");
 
-    private Conexion() {
-    }
-
     /**
-     * Crea un EntityManager nuevo. Quien lo pide es responsable de cerrarlo.
+     * Método para crear un objeto del tipo EntityManager, usado en los
+     * repositorios para las operaciones necesarias. Hace uso de la fabrica ya
+     * creada de la clase.
+     * 
+     * @return objeto del tipo EntityManager, usado para las operaciones de los repositorios.
      */
     public static EntityManager crearEntityManager() {
         return FABRICA.createEntityManager();
     }
 
     /**
-     * Cierra la conexión. Llamar al terminar el programa.
+     * Método para cerrar la fabrica, utilizado al cerrar el programa.
      */
     public static void cerrar() {
         if (FABRICA.isOpen()) {

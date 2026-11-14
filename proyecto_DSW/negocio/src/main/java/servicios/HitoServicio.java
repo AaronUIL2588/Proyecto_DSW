@@ -10,8 +10,8 @@ import enumeradores.EstadoHito;
 import enumeradores.EstadoProyecto;
 import java.util.List;
 import repositorios.HitoRepositorio;
-import repositorios.IHitoRepositorio;
-import repositorios.IProyectoRepositorio;
+import interfaces.IHitoRepositorio;
+import interfaces.IProyectoRepositorio;
 import repositorios.ProyectoRepositorio;
 
 /**

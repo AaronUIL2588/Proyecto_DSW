@@ -4,7 +4,7 @@ package servicios;
 
 import entidades.Usuario;
 import enumeradores.EstadoVerificacion;
-import repositorios.IUsuarioRepositorio;
+import interfaces.IUsuarioRepositorio;
 import repositorios.UsuarioRepositorio;
 
 /**

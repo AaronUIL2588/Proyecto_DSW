@@ -4,6 +4,7 @@
  */
 package repositorios;
 
+import interfaces.IPostulacionRepositorio;
 import entidades.Postulacion;
 import enumeradores.EstadoPostulacion;
 import java.util.List;

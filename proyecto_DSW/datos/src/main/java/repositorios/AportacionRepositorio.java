@@ -4,6 +4,7 @@
  */
 package repositorios;
 
+import interfaces.IAportacionRepositorio;
 import entidades.Aportacion;
 import java.util.List;
 

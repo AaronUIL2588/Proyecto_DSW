@@ -12,9 +12,9 @@ import java.time.LocalDate;
 import java.util.List;
 import repositorios.AportacionRepositorio;
 import repositorios.HitoRepositorio;
-import repositorios.IAportacionRepositorio;
-import repositorios.IHitoRepositorio;
-import repositorios.IProyectoRepositorio;
+import interfaces.IAportacionRepositorio;
+import interfaces.IHitoRepositorio;
+import interfaces.IProyectoRepositorio;
 import repositorios.ProyectoRepositorio;
 
 /**
