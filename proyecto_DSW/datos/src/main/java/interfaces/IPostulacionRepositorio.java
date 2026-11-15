@@ -25,9 +25,6 @@ public interface IPostulacionRepositorio {
 
     void actualizarEstado(Long id, EstadoPostulacion estado);
 
-    /**
-     * Indica si el usuario ya se postuló a ese proyecto.
-     */
     boolean existePostulacion(Long idUsuario, Long idProyecto);
 
 }

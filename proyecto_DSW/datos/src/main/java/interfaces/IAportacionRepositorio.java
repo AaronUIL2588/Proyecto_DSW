@@ -22,9 +22,6 @@ public interface IAportacionRepositorio {
 
     List<Aportacion> listarPorUsuario(Long idUsuario);
 
-    /**
-     * Suma de los montos aportados a un proyecto (0 si no tiene aportaciones).
-     */
     double obtenerTotalRecaudado(Long idProyecto);
 
 }
