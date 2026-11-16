@@ -89,7 +89,7 @@ public class PruebaRepositorios {
             System.out.println("8. Hito: " + hitos.buscarPorId(idHito).getEstado()
                     + " | Proyecto: " + proyectos.buscarPorId(proyecto.getId()).getEstado());
         } finally {
-            Conexion.cerrar();
+            RepositorioBase.cerrar();
         }
     }
 }

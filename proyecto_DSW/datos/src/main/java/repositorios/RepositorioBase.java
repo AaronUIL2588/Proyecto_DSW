@@ -3,14 +3,36 @@ package repositorios;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
- * Clase abstracta utilizada en los repositorios del programa. Trabaja con
- * la clase Conexion para hacer uso de los EntityManager.
- *
+ * clase abtracta utilizada en los repositorios del programa. Crea una sola 
+ * vez la fábrica de JPA (unidad de persistencia "ConexionJPA", definida en 
+ * persistence.xml) y la usa para crear los EntityManager que necesitan los 
+ * métodos ejecutar() y consultar().
+ * 
  * @author Felix_isq
  */
 public abstract class RepositorioBase {
+    
+    // Fábrica de EntityManager, creada una sola vez para todos los repositorios
+    // (final: su valor no puede cambiar; static: es compartida por todas las 
+    //clases que heredan de RrepositorioBase)
+    
+    private static final EntityManagerFactory FABRICA
+            = Persistence.createEntityManagerFactory("ConexionJPA");
+    
+    /**
+     * Metodo para cerrar la fabrica, utilizado al cerrar el programa.
+     */
+    public static void cerrar(){
+        if (FABRICA.isOpen()) {
+            FABRICA.close();
+        }
+    }
+    
+    
     /**
      * Método utilizado para realizar operaciones que modifiquen la información
      * de la base de datos. Utiliza la interfaz funcional Consumer, la cual
@@ -21,8 +43,8 @@ public abstract class RepositorioBase {
      * @param accion Objeto representativo de la acción que se realizará, en este caso, a la base de datos, usando EntityManager
      */
     protected void ejecutar(Consumer<EntityManager> accion) {
-        // Se crea el EntityManager usando la clase Conexion
-        EntityManager em = Conexion.crearEntityManager();
+        // Se crea el EntityManager usando la fábrica
+        EntityManager em = FABRICA.createEntityManager();
         try {
             // Se realizan las operaciones comúnes (incluyendo el inicio y fin
             // de la transacción)
@@ -59,8 +81,8 @@ public abstract class RepositorioBase {
      * @return Objeto del resultado de la consulta realizada
      */
     protected <T> T consultar(Function<EntityManager, T> consulta) {
-        // Se crea el EntityManager usando la clase Conexion
-        EntityManager em = Conexion.crearEntityManager();
+        // Se crea el EntityManager usando la fábrica
+        EntityManager em = FABRICA.createEntityManager();
         try {
             // Se utiliza el método apply de la interfaz Function, el cual 
             // ejecuta la operación recibida (en este caso, una consulta) y

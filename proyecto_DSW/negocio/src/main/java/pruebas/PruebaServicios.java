@@ -13,7 +13,7 @@ import entidades.Postulacion;
 import entidades.Proyecto;
 import entidades.Usuario;
 import java.util.List;
-import repositorios.Conexion;
+import repositorios.RepositorioBase;
 import servicios.AportacionServicio;
 import servicios.HitoServicio;
 import servicios.NegocioException;
@@ -100,7 +100,7 @@ public class PruebaServicios {
         } catch (NegocioException e) {
             System.out.println("ERROR DE NEGOCIO: " + e.getMessage());
         } finally {
-            Conexion.cerrar();
+            RepositorioBase.cerrar();
         }
     }
 
