@@ -10,16 +10,10 @@ import java.util.List;
  *
  * @author Felix_isq
  */
-public class HitoRepositorio extends RepositorioBase implements IHitoRepositorio {
+public class HitoRepositorio extends RepositorioBase<Hito> implements IHitoRepositorio {
 
-    @Override
-    public void guardar(Hito hito) {
-        ejecutar(em -> em.persist(hito));
-    }
-
-    @Override
-    public Hito buscarPorId(Long id) {
-        return consultar(em -> em.find(Hito.class, id));
+    public HitoRepositorio() {
+        super(Hito.class);
     }
 
     @Override

@@ -11,32 +11,10 @@ import java.util.List;
  *
  * @author Felix_isq
  */
-public class AportacionRepositorio extends RepositorioBase implements IAportacionRepositorio {
+public class AportacionRepositorio extends RepositorioBase<Aportacion> implements IAportacionRepositorio {
 
-    /**
-     * Método para guardar un objeto de la entidad Aportacion en la base de datos.
-     * 
-     * @param aportacion Objeto del tipo Aportacion a guardar en la base de datos
-     */
-    @Override
-    public void guardar(Aportacion aportacion) {
-        // Utiliza el método heredado ejecutar(), con la operación persist(),
-        // recibiendo el objeto aportacion para insertarlo
-        ejecutar(em -> em.persist(aportacion));
-    }
-
-    /**
-     * Método para buscar una aportación, utilizando su ID, en la base de datos.
-     * 
-     * @param id Valor numerico que representa el ID de la aportación a buscar
-     * @return Objeto del tipo Aportacion (o null) como resultado de la busqueda
-     */
-    @Override
-    public Aportacion buscarPorId(Long id) {
-        // Utiliza el método heredado consultar(), con la operación find(),
-        // recibiendo la clase del objeto que regresará (donde, en caso de no
-        // encontrar coincidencias, devolverá null) y el ID que lo identifica
-        return consultar(em -> em.find(Aportacion.class, id));
+    public AportacionRepositorio() {
+        super(Aportacion.class);
     }
 
     /**

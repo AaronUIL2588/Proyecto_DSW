@@ -12,32 +12,10 @@ import java.util.List;
  *
  * @author Felix_isq
  */
-public class ProyectoRepositorio extends RepositorioBase implements IProyectoRepositorio {
+public class ProyectoRepositorio extends RepositorioBase<Proyecto> implements IProyectoRepositorio {
 
-    /**
-     * Método para guardar un objeto de la entidad Proyecto en la base de datos.
-     * 
-     * @param proyecto Objeto del tipo Proyecto a guardar en la base de datos 
-     */
-    @Override
-    public void guardar(Proyecto proyecto) {
-        // Utiliza el método heredado ejecutar(), con la operación persist(),
-        // recibiendo el objeto proyecto para insertarlo
-        ejecutar(em -> em.persist(proyecto));
-    }
-
-    /**
-     * Método para buscar un proyecto, utilizando su ID, en la base de datos.
-     * 
-     * @param id Valor numerico que representa el ID del proyecto a buscar
-     * @return Objeto del tipo Proyecto (o null) como resultado de la busqueda
-     */
-    @Override
-    public Proyecto buscarPorId(Long id) {
-        // Utiliza el método heredado consultar(), con la operación find(),
-        // recibiendo la clase del objeto que regresará (donde, en caso de no
-        // encontrar coincidencias, devolverá null) y el ID que lo identifica
-        return consultar(em -> em.find(Proyecto.class, id));
+    public ProyectoRepositorio() {
+        super(Proyecto.class);
     }
 
     /**

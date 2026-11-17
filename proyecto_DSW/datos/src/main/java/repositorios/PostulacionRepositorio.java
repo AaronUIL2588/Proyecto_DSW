@@ -12,32 +12,10 @@ import java.util.List;
  *
  * @author Felix_isq
  */
-public class PostulacionRepositorio extends RepositorioBase implements IPostulacionRepositorio {
+public class PostulacionRepositorio extends RepositorioBase<Postulacion> implements IPostulacionRepositorio {
 
-    /**
-     * Método para guardar un objeto de la entidad Postulacion en la base de datos.
-     * 
-     * @param postulacion Objeto del tipo Postulacion a guardar en la base de datos 
-     */
-    @Override
-    public void guardar(Postulacion postulacion) {
-        // Utiliza el método heredado ejecutar(), con la operación persist(),
-        // recibiendo el objeto postulacion para insertarlo
-        ejecutar(em -> em.persist(postulacion));
-    }
-
-    /**
-     * Método para buscar una postulacion, utilizando su ID, en la base de datos.
-     * 
-     * @param id Valor numerico que representa el ID de la postulacion a buscar
-     * @return Objeto del tipo Postulacion (o null) como resultado de la busqueda
-     */
-    @Override
-    public Postulacion buscarPorId(Long id) {
-        // Utiliza el método heredado consultar(), con la operación find(),
-        // recibiendo la clase del objeto que regresará (donde, en caso de no
-        // encontrar coincidencias, devolverá null) y el ID que lo identifica
-        return consultar(em -> em.find(Postulacion.class, id));
+    public PostulacionRepositorio() {
+        super(Postulacion.class);
     }
 
     /**

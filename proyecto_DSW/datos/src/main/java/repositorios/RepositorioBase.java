@@ -7,90 +7,117 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * clase abtracta utilizada en los repositorios del programa. Crea una sola 
- * vez la fábrica de JPA (unidad de persistencia "ConexionJPA", definida en 
- * persistence.xml) y la usa para crear los EntityManager que necesitan los 
+ * Clase abstracta utilizada en los repositorios del programa. Crea una sola
+ * vez la fábrica de JPA (unidad de persistencia "ConexionJPA", definida en
+ * persistence.xml) y la usa para crear los EntityManager que necesitan los
  * métodos ejecutar() y consultar().
- * 
+ *
+ * Es genérica (T es la entidad con la que trabaja el repositorio) para tener
+ * en un solo lugar las operaciones guardar() y buscarPorId(), que son iguales
+ * en todos los repositorios.
+ *
+ * @param <T> Entidad con la que trabaja el repositorio (Usuario, Proyecto...)
  * @author Felix_isq
  */
-public abstract class RepositorioBase {
-    
+public abstract class RepositorioBase<T> {
+
     // Fábrica de EntityManager, creada una sola vez para todos los repositorios
-    // (final: su valor no puede cambiar; static: es compartida por todas las 
-    //clases que heredan de RrepositorioBase)
-    
+    // (final: su valor no puede cambiar; static: es compartida por todas las
+    // clases que heredan de RepositorioBase)
     private static final EntityManagerFactory FABRICA
             = Persistence.createEntityManagerFactory("ConexionJPA");
-    
+
+    // Clase de la entidad (por ejemplo Usuario.class); la necesita em.find()
+    private final Class<T> clase;
+
     /**
-     * Metodo para cerrar la fabrica, utilizado al cerrar el programa.
+     * Constructor utilizado por los repositorios hijos para indicar con qué
+     * entidad trabajan.
+     *
+     * @param clase Clase de la entidad, por ejemplo Usuario.class
      */
-    public static void cerrar(){
+    protected RepositorioBase(Class<T> clase) {
+        this.clase = clase;
+    }
+
+    /**
+     * Método para cerrar la fábrica, utilizado al cerrar el programa.
+     */
+    public static void cerrar() {
         if (FABRICA.isOpen()) {
             FABRICA.close();
         }
     }
-    
-    
+
+    /**
+     * Guarda una entidad en la base de datos. Es igual para todos los
+     * repositorios, por eso está aquí y no se repite en cada uno.
+     *
+     * @param entidad Objeto a guardar en la base de datos
+     */
+    public void guardar(T entidad) {
+        ejecutar(em -> em.persist(entidad));
+    }
+
+    /**
+     * Busca una entidad por su id.
+     *
+     * @param id Identificador de la entidad
+     * @return La entidad encontrada, o null si no existe
+     */
+    public T buscarPorId(Long id) {
+        return consultar(em -> em.find(clase, id));
+    }
+
     /**
      * Método utilizado para realizar operaciones que modifiquen la información
      * de la base de datos. Utiliza la interfaz funcional Consumer, la cual
-     * recibe un objeto del tipo T (generico), en este caso, EntityManager,
-     * para realizar operaciones sin necesidad de devolver algún resultado.
-     * Este método es usado en una expresión lambda.
-     * 
-     * @param accion Objeto representativo de la acción que se realizará, en este caso, a la base de datos, usando EntityManager
+     * recibe un objeto del tipo EntityManager para realizar operaciones sin
+     * necesidad de devolver algún resultado. Este método es usado en una
+     * expresión lambda.
+     *
+     * @param accion Acción que se realizará en la base de datos, usando EntityManager
      */
     protected void ejecutar(Consumer<EntityManager> accion) {
         // Se crea el EntityManager usando la fábrica
         EntityManager em = FABRICA.createEntityManager();
         try {
-            // Se realizan las operaciones comúnes (incluyendo el inicio y fin
-            // de la transacción)
+            // Se inicia la transacción
             em.getTransaction().begin();
-            // Se usa el método accept de la interfaz Consumer, el cual permite
-            // ejecutar la operación recibida en el parametro del mismo
+            // accept() ejecuta la operación recibida en el parámetro
             accion.accept(em);
             // Se finaliza la transacción
             em.getTransaction().commit();
         } catch (RuntimeException e) {
-            // Se manejan las excepciones, haciendo uso del método rollback en
-            // la transacción, permitiendo volver al estado normal de la base
-            // de datos, antes de realizar cambios
+            // Si algo falla, rollback deshace los cambios de la transacción
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             throw e;
         } finally {
-            // Independientemente del resultado de la operación, al final del
-            // método, se cierra el EntityManager para liberar los recursos utilizados
+            // Siempre se cierra el EntityManager para liberar recursos
             em.close();
         }
     }
 
     /**
      * Método utilizado para realizar consultas a la base de datos y devolver
-     * los resultados de las mismas. Similar al método ejecutar(), este método
-     * utiliza la interfaz funcional Function, la cual recibe un objeto
-     * (EntityManager o T, génerico) para realizar una operación y devolver
-     * un resultado. Este método se utiliza en una expresión lambda.
-     * 
-     * @param <T> Tipo de dato génerico obtenido como resultado, dependiendo de la consulta realizada.
-     * @param consulta Objeto que representa la consulta que se realizara a la base de datos
-     * @return Objeto del resultado de la consulta realizada
+     * sus resultados. Similar a ejecutar(), pero utiliza la interfaz funcional
+     * Function, que recibe un EntityManager y devuelve un resultado. Este
+     * método se utiliza en una expresión lambda.
+     *
+     * @param <R> Tipo del resultado obtenido, dependiendo de la consulta realizada
+     * @param consulta Consulta que se realizará a la base de datos
+     * @return Resultado de la consulta realizada
      */
-    protected <T> T consultar(Function<EntityManager, T> consulta) {
+    protected <R> R consultar(Function<EntityManager, R> consulta) {
         // Se crea el EntityManager usando la fábrica
         EntityManager em = FABRICA.createEntityManager();
         try {
-            // Se utiliza el método apply de la interfaz Function, el cual 
-            // ejecuta la operación recibida (en este caso, una consulta) y
-            // devuelve su resultado
+            // apply() ejecuta la consulta recibida y devuelve su resultado
             return consulta.apply(em);
         } finally {
-            // Independientemente del resultado de la operación, al final del
-            // método, se cierra el EntityManager para liberar los recursos utilizados
+            // Siempre se cierra el EntityManager para liberar recursos
             em.close();
         }
     }

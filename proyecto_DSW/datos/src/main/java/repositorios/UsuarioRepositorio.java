@@ -9,16 +9,10 @@ import java.util.List;
  *
  * @author Felix_isq
  */
-public class UsuarioRepositorio extends RepositorioBase implements IUsuarioRepositorio {
+public class UsuarioRepositorio extends RepositorioBase<Usuario> implements IUsuarioRepositorio {
 
-    @Override
-    public void guardar(Usuario usuario) {
-        ejecutar(em -> em.persist(usuario));
-    }
-
-    @Override
-    public Usuario buscarPorId(Long id) {
-        return consultar(em -> em.find(Usuario.class, id));
+    public UsuarioRepositorio() {
+        super(Usuario.class);
     }
 
     @Override
