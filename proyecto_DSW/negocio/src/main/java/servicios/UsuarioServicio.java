@@ -6,6 +6,7 @@ import entidades.Usuario;
 import enumeradores.EstadoVerificacion;
 import interfaces.IUsuarioRepositorio;
 import repositorios.UsuarioRepositorio;
+import interfaces.IUsuarioServicio;
 
 /**
  * Reglas de negocio de los usuarios: registro, inicio de sesión, perfil y
@@ -16,7 +17,7 @@ import repositorios.UsuarioRepositorio;
  *
  * @author Felix_isq
  */
-public class UsuarioServicio {
+public class UsuarioServicio implements IUsuarioServicio {
 
     private final IUsuarioRepositorio usuarioRepositorio;
 
@@ -112,6 +113,21 @@ public class UsuarioServicio {
         if (!usuario.getCorreo().contains("@")) {
             throw new NegocioException("El correo no es válido");
         }
+    }
+
+    @Override
+    public Usuario registraUsuario(Usuario usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void actualizxarPerfil(Usuario usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean solicitarVerificionFreelancer(Long idUsuario, String numeroCedula) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

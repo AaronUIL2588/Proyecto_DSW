@@ -18,13 +18,13 @@ import interfaces.IUsuarioRepositorio;
 import repositorios.PostulacionRepositorio;
 import repositorios.ProyectoRepositorio;
 import repositorios.UsuarioRepositorio;
-
+import interfaces.IPostulacionServicio;
 /**
  * Reglas de negocio de las postulaciones de freelancers a los proyectos.
  *
  * @author Felix_isq
  */
-public class PostulacionServicio {
+public class PostulacionServicio implements IPostulacionServicio {
 
     private final IPostulacionRepositorio postulacionRepositorio;
     private final IProyectoRepositorio proyectoRepositorio;

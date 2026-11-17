@@ -13,6 +13,7 @@ import repositorios.HitoRepositorio;
 import interfaces.IHitoRepositorio;
 import interfaces.IProyectoRepositorio;
 import repositorios.ProyectoRepositorio;
+import interfaces.IHitoServicio;
 
 /**
  * Reglas de negocio de los hitos. Un hito pasa por PENDIENTE (por hacer),
@@ -21,7 +22,7 @@ import repositorios.ProyectoRepositorio;
  *
  * @author Felix_isq
  */
-public class HitoServicio {
+public class HitoServicio implements IHitoServicio {
 
     private final IHitoRepositorio hitoRepositorio;
     private final IProyectoRepositorio proyectoRepositorio;

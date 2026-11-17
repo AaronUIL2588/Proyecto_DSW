@@ -16,6 +16,7 @@ import interfaces.IAportacionRepositorio;
 import interfaces.IHitoRepositorio;
 import interfaces.IProyectoRepositorio;
 import repositorios.ProyectoRepositorio;
+import interfaces.IProyectoServicio;
 
 /**
  * Reglas de negocio de los proyectos: publicar, consultar el catálogo,
@@ -23,7 +24,7 @@ import repositorios.ProyectoRepositorio;
  *
  * @author Felix_isq
  */
-public class ProyectoServicio {
+public class ProyectoServicio implements IProyectoServicio {
 
     private final IProyectoRepositorio proyectoRepositorio;
     private final IHitoRepositorio hitoRepositorio;
