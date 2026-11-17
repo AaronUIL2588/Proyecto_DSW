@@ -13,15 +13,16 @@ import entidades.Usuario;
  */
 public interface IUsuarioServicio {
 
-    Usuario registraUsuario(Usuario usuario);
+     Usuario registrarUsuario(Usuario usuario);
 
     Usuario iniciarSesion(String correo, String contrasenia);
 
     Usuario obtenerPerfil(Long idUsuario);
 
-    void actualizxarPerfil(Usuario usuario);
+    void actualizarPerfil(Usuario usuario);
 
     boolean verificarCedula(String numero);
 
-    boolean solicitarVerificionFreelancer(Long idUsuario, String numeroCedula);
+    boolean solicitarVerificacionFreelancer(Long idUsuario, String numeroCedula);
+
 }
