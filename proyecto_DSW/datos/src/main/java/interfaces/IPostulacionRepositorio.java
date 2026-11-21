@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package interfaces;
 
 import entidades.Postulacion;
@@ -13,11 +9,7 @@ import java.util.List;
  *
  * @author Felix_isq
  */
-public interface IPostulacionRepositorio {
-
-    void guardar(Postulacion postulacion);
-
-    Postulacion buscarPorId(Long id);
+public interface IPostulacionRepositorio extends IRepositorioBase<Postulacion> {
 
     List<Postulacion> listarPorProyecto(Long idProyecto);
 
@@ -26,5 +18,4 @@ public interface IPostulacionRepositorio {
     void actualizarEstado(Long id, EstadoPostulacion estado);
 
     boolean existePostulacion(Long idUsuario, Long idProyecto);
-
 }

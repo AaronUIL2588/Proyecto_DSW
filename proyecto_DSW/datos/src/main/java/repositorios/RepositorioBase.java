@@ -1,5 +1,5 @@
 package repositorios;
-
+import interfaces.IRepositorioBase;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import javax.persistence.EntityManager;
@@ -19,7 +19,7 @@ import javax.persistence.Persistence;
  * @param <T> Entidad con la que trabaja el repositorio (Usuario, Proyecto...)
  * @author Felix_isq
  */
-public abstract class RepositorioBase<T> {
+public abstract class RepositorioBase<T> implements IRepositorioBase<T>{
 
     // Fábrica de EntityManager, creada una sola vez para todos los repositorios
     // (final: su valor no puede cambiar; static: es compartida por todas las
@@ -55,6 +55,7 @@ public abstract class RepositorioBase<T> {
      *
      * @param entidad Objeto a guardar en la base de datos
      */
+    @Override
     public void guardar(T entidad) {
         ejecutar(em -> em.persist(entidad));
     }
@@ -65,10 +66,36 @@ public abstract class RepositorioBase<T> {
      * @param id Identificador de la entidad
      * @return La entidad encontrada, o null si no existe
      */
+    @Override
     public T buscarPorId(Long id) {
         return consultar(em -> em.find(clase, id));
     }
 
+    /**
+     * Actualiza una entidad que ya existe en la base de datos.
+     * 
+     * @param entidad Objeto con  los datos actualizados
+     */
+    @Override
+    public void actualizar(T entidad){
+        ejecutar(em -> em.merge(entidad));
+    }
+    
+    /**
+     * Eliminar una entidad usando su id. Si no existe, no hece nada.
+     * 
+     * @param id Identificador de la entidad a eliminar
+     */
+    @Override
+    public void eliminar(Long id){
+        ejecutar(em -> {
+            T entidad = em.find(clase, id);
+            if (entidad != null) {
+                em.remove(entidad);
+            }
+        });
+    }
+    
     /**
      * Método utilizado para realizar operaciones que modifiquen la información
      * de la base de datos. Utiliza la interfaz funcional Consumer, la cual

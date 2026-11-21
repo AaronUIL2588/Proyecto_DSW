@@ -31,18 +31,5 @@ public class UsuarioRepositorio extends RepositorioBase<Usuario> implements IUsu
         return consultar(em -> em.createQuery("SELECT u FROM Usuario u", Usuario.class).getResultList());
     }
 
-    @Override
-    public void actualizar(Usuario usuario) {
-        ejecutar(em -> em.merge(usuario));
-    }
-
-    @Override
-    public void eliminar(Long id) {
-        ejecutar(em -> {
-            Usuario usuario = em.find(Usuario.class, id);
-            if (usuario != null) {
-                em.remove(usuario);
-            }
-        });
-    }
+    
 }

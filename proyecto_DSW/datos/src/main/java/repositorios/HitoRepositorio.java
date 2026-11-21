@@ -25,11 +25,6 @@ public class HitoRepositorio extends RepositorioBase<Hito> implements IHitoRepos
     }
 
     @Override
-    public void actualizar(Hito hito) {
-        ejecutar(em -> em.merge(hito));
-    }
-
-    @Override
     public void actualizarEstado(Long id, EstadoHito estado) {
         ejecutar(em -> {
             Hito hito = em.find(Hito.class, id);
