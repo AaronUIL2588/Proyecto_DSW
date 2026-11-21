@@ -1,6 +1,6 @@
 package entidades;
 
-import enumeradores.EstadoPostulacion;
+
 import enumeradores.EstadoProyecto;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -75,59 +75,6 @@ public class Proyecto implements Serializable {
     private List<Aportacion> listaAportaciones = new ArrayList<>();
 
     public Proyecto() {
-    }
-
-    /**
-     * Agrega un hito al proyecto y deja ambos lados de la relación
-     * sincronizados.
-     */
-    public void agregarHito(Hito hito) {
-        if (!listaHitos.contains(hito)) {
-            listaHitos.add(hito);
-        }
-        hito.setProyecto(this);
-    }
-
-    /**
-     * Quita un hito del proyecto (orphanRemoval lo borra de la base de datos).
-     */
-    public void quitarHito(Hito hito) {
-        listaHitos.remove(hito);
-        hito.setProyecto(null);
-    }
-
-    /**
-     * Agrega una postulación recibida y deja ambos lados sincronizados.
-     */
-    public void agregarPostulacion(Postulacion postulacion) {
-        if (!listaPostulaciones.contains(postulacion)) {
-            listaPostulaciones.add(postulacion);
-        }
-        postulacion.setProyecto(this);
-    }
-
-    /**
-     * Agrega una aportación recibida y deja ambos lados sincronizados.
-     */
-    public void agregarAportacion(Aportacion aportacion) {
-        if (!listaAportaciones.contains(aportacion)) {
-            listaAportaciones.add(aportacion);
-        }
-        aportacion.setProyecto(this);
-    }
-
-    /**
-     * Freelancers asignados al proyecto: los usuarios cuya postulación fue
-     * aceptada. No es una columna; se calcula a partir de las postulaciones.
-     */
-    public List<Usuario> obtenerFreelancersAsignados() {
-        List<Usuario> freelancers = new ArrayList<>();
-        for (Postulacion p : listaPostulaciones) {
-            if (p.getEstadoPostulacion() == EstadoPostulacion.ACEPTADA) {
-                freelancers.add(p.getUsuario());
-            }
-        }
-        return freelancers;
     }
 
     public Long getId() {

@@ -177,7 +177,8 @@ public class ProyectoBuilder {
         proyecto.setContacto(contacto);
         proyecto.setUsuario(usuario);
         for (Hito hito : hitos) {
-            proyecto.agregarHito(hito);
+            hito.setProyecto(proyecto);
+            proyecto.getListaHitos().add(hito);
         }
         return proyecto;
     }

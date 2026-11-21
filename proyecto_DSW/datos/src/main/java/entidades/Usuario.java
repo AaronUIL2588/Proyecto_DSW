@@ -77,39 +77,6 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    /**
-     * Agrega un proyecto publicado por este usuario y deja ambos lados
-     * sincronizados.
-     */
-    public void agregarProyecto(Proyecto p) {
-        if (!proyecto.contains(p)) {
-            proyecto.add(p);
-        }
-        p.setUsuario(this);
-    }
-
-    /**
-     * Agrega una postulación enviada por este usuario y deja ambos lados
-     * sincronizados.
-     */
-    public void agregarPostulacion(Postulacion p) {
-        if (!postulacion.contains(p)) {
-            postulacion.add(p);
-        }
-        p.setUsuario(this);
-    }
-
-    /**
-     * Agrega una aportación hecha por este usuario y deja ambos lados
-     * sincronizados.
-     */
-    public void agregarAportacion(Aportacion a) {
-        if (!aportacion.contains(a)) {
-            aportacion.add(a);
-        }
-        a.setUsuario(this);
-    }
-
     public Long getId() {
         return id;
     }
