@@ -115,12 +115,12 @@ public class PostulacionServicio implements IPostulacionServicio {
         if (aceptadas >= proyecto.getCantidadFreelancer()) {
             throw new NegocioException("El proyecto ya tiene todos los freelancers que necesita");
         }
-        postulacionRepositorio.actualizarEstado(idPostulacion, EstadoPostulacion.ACEPTADA);
+        //postulacionRepositorio.actualizarEstado(idPostulacion, EstadoPostulacion.ACEPTADA);
         if (aceptadas + 1 >= proyecto.getCantidadFreelancer()) {
             for (Postulacion otra : todas) {
                 if (otra.getEstadoPostulacion() == EstadoPostulacion.PENDIENTE
                         && !otra.getId().equals(idPostulacion)) {
-                    postulacionRepositorio.actualizarEstado(otra.getId(), EstadoPostulacion.RECHAZADA);
+                    //postulacionRepositorio.actualizarEstado(otra.getId(), EstadoPostulacion.RECHAZADA);
                 }
             }
         }
@@ -136,10 +136,10 @@ public class PostulacionServicio implements IPostulacionServicio {
         if (postulacion.getEstadoPostulacion() != EstadoPostulacion.ACEPTADA) {
             throw new NegocioException("Solo se puede cancelar la selección de una postulación aceptada");
         }
-        postulacionRepositorio.actualizarEstado(idPostulacion, EstadoPostulacion.PENDIENTE);
+        //postulacionRepositorio.actualizarEstado(idPostulacion, EstadoPostulacion.PENDIENTE);
         for (Postulacion otra : postulacionRepositorio.listarPorProyecto(postulacion.getProyecto().getId())) {
             if (otra.getEstadoPostulacion() == EstadoPostulacion.RECHAZADA) {
-                postulacionRepositorio.actualizarEstado(otra.getId(), EstadoPostulacion.PENDIENTE);
+               // postulacionRepositorio.actualizarEstado(otra.getId(), EstadoPostulacion.PENDIENTE);
             }
         }
     }
