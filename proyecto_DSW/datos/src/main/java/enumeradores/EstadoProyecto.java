@@ -6,5 +6,24 @@ package enumeradores;
  * @author aron
  */
 public enum EstadoProyecto {
-    ACTIVO, FINALIZADO, CANCELADO
+
+    ACTIVO("ACTIVO", 1), 
+    FINALIZADO("FINALIZADO", 2), 
+    CANCELADO("CANCELADO", 3);
+
+    private final String estado;
+    private final int valor;
+
+    private EstadoProyecto(String estado, int valor) {
+        this.estado = estado;
+        this.valor = valor;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public int getValor() {
+        return valor;
+    }
 }

@@ -7,5 +7,23 @@ package enumeradores;
  * @author aron
  */
 public enum EstadoVerificacion {
-    PENDIENTE, VERIFICADO, RECHAZADO
+     PENDIENTE("PENDIENTE", 1), 
+     VERIFICADO("VERIFICADO", 2), 
+     RECHAZADO("RECHAZADO", 3);
+
+    private final String estado;
+    private final int valor;
+
+    private EstadoVerificacion(String estado, int valor) {
+        this.estado = estado;
+        this.valor = valor;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public int getValor() {
+        return valor;
+    }
 }
