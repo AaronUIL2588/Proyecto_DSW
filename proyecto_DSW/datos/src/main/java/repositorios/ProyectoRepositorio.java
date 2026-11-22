@@ -2,7 +2,6 @@ package repositorios;
 
 import interfaces.IProyectoRepositorio;
 import entidades.Proyecto;
-import enumeradores.EstadoProyecto;
 import java.util.List;
 
 /**
@@ -75,15 +74,5 @@ public class ProyectoRepositorio extends RepositorioBase<Proyecto> implements IP
      * @param id valor numerico que representa el ID del proyecto
      * @param estado valor del tipo EstadoProyecto (enumerado) que representa el estado del proyecto a actualizar
      */
-    @Override
-    public void actualizarEstado(Long id, EstadoProyecto estado) {
-        // Usa ejecutar(), buscando el proyecto, usando su ID, y actualizando
-        // su estado (no se actualiza nada en caso que la busqueda resulte nula)
-        ejecutar(em -> {
-            Proyecto proyecto = em.find(Proyecto.class, id);
-            if (proyecto != null) {
-                proyecto.setEstado(estado);
-            }
-        });
-    }
+    
 }

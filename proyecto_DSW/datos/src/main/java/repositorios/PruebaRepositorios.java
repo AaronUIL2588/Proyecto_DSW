@@ -73,7 +73,7 @@ public class PruebaRepositorios {
                     .mensaje("Tengo experiencia en logos").usuario(freelancer).proyecto(proyecto).build();
             postulaciones.guardar(postulacion);
             System.out.println("5. existePostulacion: " + postulaciones.existePostulacion(freelancer.getId(), proyecto.getId()));
-            postulaciones.actualizarEstado(postulacion.getId(), EstadoPostulacion.ACEPTADA);
+            //postulaciones.actualizarEstado(postulacion.getId(), EstadoPostulacion.ACEPTADA);
             System.out.println("6. Estado de la postulacion: " + postulaciones.buscarPorId(postulacion.getId()).getEstadoPostulacion());
 
             // 4. Aportacion y total recaudado
@@ -84,8 +84,8 @@ public class PruebaRepositorios {
 
             // 5. Actualizar estados
             Long idHito = hitos.listarPorProyecto(proyecto.getId()).get(0).getId();
-            hitos.actualizarEstado(idHito, EstadoHito.COMPLETADO);
-            proyectos.actualizarEstado(proyecto.getId(), EstadoProyecto.FINALIZADO);
+            //hitos.actualizarEstado(idHito, EstadoHito.COMPLETADO);
+            //proyectos.actualizarEstado(proyecto.getId(), EstadoProyecto.FINALIZADO);
             System.out.println("8. Hito: " + hitos.buscarPorId(idHito).getEstado()
                     + " | Proyecto: " + proyectos.buscarPorId(proyecto.getId()).getEstado());
         } finally {

@@ -2,7 +2,6 @@ package repositorios;
 
 import interfaces.IPostulacionRepositorio;
 import entidades.Postulacion;
-import enumeradores.EstadoPostulacion;
 import java.util.List;
 
 /**
@@ -55,25 +54,7 @@ public class PostulacionRepositorio extends RepositorioBase<Postulacion> impleme
                 .getResultList());
     }
 
-    /**
-     * Método para actualizar el estado de la postulacion. Permite actualizar
-     * el estado, desde PENDIENTE, hasta ACEPTADA y RECHAZADA. Utiliza el
-     * ID de la postulacion para realizar esta actualizacion
-     * 
-     * @param id valor numerico que representa el ID de la postulacion
-     * @param estado valor del tipo EstadoPostulacion (enumerado) que representa el estado de la postulacion a actualizar
-     */
-    @Override
-    public void actualizarEstado(Long id, EstadoPostulacion estado) {
-        // Usa ejecutar(), buscando la postulacion, usando su ID, y actualizando
-        // su estado (no se actualiza nada en caso que la busqueda resulte nula)
-        ejecutar(em -> {
-            Postulacion postulacion = em.find(Postulacion.class, id);
-            if (postulacion != null) {
-                postulacion.setEstadoPostulacion(estado);
-            }
-        });
-    }
+    
 
     /**
      * Método utilizado para validar si la postulacion existe, usando los

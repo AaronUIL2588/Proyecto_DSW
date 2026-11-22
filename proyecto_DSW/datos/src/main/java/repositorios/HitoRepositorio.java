@@ -2,7 +2,6 @@ package repositorios;
 
 import interfaces.IHitoRepositorio;
 import entidades.Hito;
-import enumeradores.EstadoHito;
 import java.util.List;
 
 /**
@@ -24,13 +23,5 @@ public class HitoRepositorio extends RepositorioBase<Hito> implements IHitoRepos
                 .getResultList());
     }
 
-    @Override
-    public void actualizarEstado(Long id, EstadoHito estado) {
-        ejecutar(em -> {
-            Hito hito = em.find(Hito.class, id);
-            if (hito != null) {
-                hito.setEstado(estado);
-            }
-        });
-    }
+    
 }

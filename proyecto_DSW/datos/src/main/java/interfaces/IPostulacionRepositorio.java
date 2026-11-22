@@ -1,7 +1,6 @@
 package interfaces;
 
 import entidades.Postulacion;
-import enumeradores.EstadoPostulacion;
 import java.util.List;
 
 /**
@@ -14,8 +13,6 @@ public interface IPostulacionRepositorio extends IRepositorioBase<Postulacion> {
     List<Postulacion> listarPorProyecto(Long idProyecto);
 
     List<Postulacion> listarPorUsuario(Long idUsuario);
-
-    void actualizarEstado(Long id, EstadoPostulacion estado);
 
     boolean existePostulacion(Long idUsuario, Long idProyecto);
 }

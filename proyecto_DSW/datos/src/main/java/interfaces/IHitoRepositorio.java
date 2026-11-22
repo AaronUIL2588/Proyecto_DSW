@@ -1,7 +1,6 @@
 package interfaces;
 
 import entidades.Hito;
-import enumeradores.EstadoHito;
 import java.util.List;
 
 /**
@@ -13,5 +12,4 @@ public interface IHitoRepositorio extends IRepositorioBase<Hito> {
 
     List<Hito> listarPorProyecto(Long idProyecto);
 
-    void actualizarEstado(Long id, EstadoHito estado);
 }

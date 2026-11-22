@@ -1,7 +1,6 @@
 package interfaces;
 
 import entidades.Proyecto;
-import enumeradores.EstadoProyecto;
 import java.util.List;
 
 /**
@@ -18,5 +17,5 @@ public interface IProyectoRepositorio extends IRepositorioBase<Proyecto> {
 
     List<Proyecto> buscarPorCategoria(String categoria);
 
-    void actualizarEstado(Long id, EstadoProyecto estado);
+    
 }
