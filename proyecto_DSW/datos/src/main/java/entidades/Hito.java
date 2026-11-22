@@ -1,11 +1,11 @@
 package entidades;
 
+import convertidores.EstadoHitoConvertidor;
 import enumeradores.EstadoHito;
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +31,7 @@ public class Hito implements Serializable {
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = EstadoHitoConvertidor.class)
     @Column(name = "estado", nullable = false)
     private EstadoHito estado;
 

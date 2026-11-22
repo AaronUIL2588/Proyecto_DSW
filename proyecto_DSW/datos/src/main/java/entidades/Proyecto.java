@@ -1,6 +1,7 @@
 package entidades;
 
 
+import convertidores.EstadoProyectoConvertidor;
 import enumeradores.EstadoProyecto;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -8,9 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +45,7 @@ public class Proyecto implements Serializable {
     @Column(name = "cantidad_freelancer", nullable = false)
     private int cantidadFreelancer;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = EstadoProyectoConvertidor.class)
     @Column(name = "estado", nullable = false)
     private EstadoProyecto estado;
 

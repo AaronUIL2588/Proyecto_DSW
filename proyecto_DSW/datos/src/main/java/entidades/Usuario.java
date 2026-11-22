@@ -1,13 +1,13 @@
 package entidades;
 
+import convertidores.EstadoVerificacionConvertidor;
 import enumeradores.EstadoVerificacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,7 +52,7 @@ public class Usuario implements Serializable {
     @Column(name = "numero_cedula")
     private String numeroCedulaProfesional;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = EstadoVerificacionConvertidor.class)
     @Column(name = "estado_verificacion")
     private EstadoVerificacion estadoVerificacion;
 
