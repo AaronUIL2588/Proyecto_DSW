@@ -76,7 +76,8 @@ public class HitoServicio implements IHitoServicio {
         if (hito.getEstado() != EstadoHito.PENDIENTE) {
             throw new NegocioException("Solo un hito pendiente puede marcarse como terminado");
         }
-        //hitoRepositorio.actualizarEstado(idHito, EstadoHito.COMPLETADO);
+        hito.setEstado(EstadoHito.COMPLETADO);
+        hitoRepositorio.actualizar(hito);
     }
 
     /**
@@ -87,7 +88,8 @@ public class HitoServicio implements IHitoServicio {
         if (hito.getEstado() != EstadoHito.COMPLETADO) {
             throw new NegocioException("Solo se puede aprobar un hito marcado como terminado");
         }
-       // hitoRepositorio.actualizarEstado(idHito, EstadoHito.APROBADO);
+        hito.setEstado(EstadoHito.APROBADO);
+        hitoRepositorio.actualizar(hito);
     }
 
     /**
@@ -98,7 +100,8 @@ public class HitoServicio implements IHitoServicio {
         if (hito.getEstado() != EstadoHito.COMPLETADO) {
             throw new NegocioException("Solo se puede rechazar un hito marcado como terminado");
         }
-        
+        hito.setEstado(EstadoHito.PENDIENTE);
+        hitoRepositorio.actualizar(hito);
     }
 
     private Hito obtenerHitoDeProyectoActivo(Long idHito) {

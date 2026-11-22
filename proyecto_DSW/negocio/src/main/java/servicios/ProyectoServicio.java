@@ -120,7 +120,8 @@ public class ProyectoServicio implements IProyectoServicio {
         if (proyecto.getEstado() != EstadoProyecto.ACTIVO) {
             throw new NegocioException("Solo se puede cancelar un proyecto activo");
         }
-       // proyectoRepositorio.actualizarEstado(idProyecto, EstadoProyecto.CANCELADO);
+        proyecto.setEstado(EstadoProyecto.CANCELADO);
+        proyectoRepositorio.actualizar(proyecto);
     }
 
     /**
@@ -141,7 +142,8 @@ public class ProyectoServicio implements IProyectoServicio {
                 return false;
             }
         }
-       // proyectoRepositorio.actualizarEstado(idProyecto, EstadoProyecto.FINALIZADO);
+        proyecto.setEstado(EstadoProyecto.FINALIZADO);
+        proyectoRepositorio.actualizar(proyecto);
         return true;
     }
 
@@ -153,7 +155,8 @@ public class ProyectoServicio implements IProyectoServicio {
         if (proyecto.getEstado() == EstadoProyecto.ACTIVO) {
             throw new NegocioException("El proyecto ya está activo");
         }
-        //proyectoRepositorio.actualizarEstado(idProyecto, EstadoProyecto.ACTIVO);
+        proyecto.setEstado(EstadoProyecto.ACTIVO);
+        proyectoRepositorio.actualizar(proyecto);
     }
 
     /**

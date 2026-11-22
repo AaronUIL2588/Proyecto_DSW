@@ -10,6 +10,7 @@ import Builders.PostulacionBuilder;
 import Builders.ProyectoBuilder;
 import Builders.UsuarioBuilder;
 import entidades.Aportacion;
+import entidades.Hito;
 import entidades.Postulacion;
 import entidades.Proyecto;
 import entidades.Usuario;
@@ -83,9 +84,14 @@ public class PruebaRepositorios {
             System.out.println("7. Total recaudado: " + aportaciones.obtenerTotalRecaudado(proyecto.getId()));
 
             // 5. Actualizar estados
-            Long idHito = hitos.listarPorProyecto(proyecto.getId()).get(0).getId();
-            //hitos.actualizarEstado(idHito, EstadoHito.COMPLETADO);
-            //proyectos.actualizarEstado(proyecto.getId(), EstadoProyecto.FINALIZADO);
+            // Se busca el objeto, se le cambia el estado y se actualiza
+            Hito hito = hitos.listarPorProyecto(proyecto.getId()).get(0);
+            Long idHito = hito.getId();
+            hito.setEstado(EstadoHito.COMPLETADO);
+            hitos.actualizar(hito);
+            Proyecto proyectoGuardado = proyectos.buscarPorId(proyecto.getId());
+            proyectoGuardado.setEstado(EstadoProyecto.FINALIZADO);
+            proyectos.actualizar(proyectoGuardado);
             System.out.println("8. Hito: " + hitos.buscarPorId(idHito).getEstado()
                     + " | Proyecto: " + proyectos.buscarPorId(proyecto.getId()).getEstado());
         } finally {

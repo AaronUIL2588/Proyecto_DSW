@@ -19,6 +19,7 @@ import repositorios.PostulacionRepositorio;
 import repositorios.ProyectoRepositorio;
 import repositorios.UsuarioRepositorio;
 import interfaces.IPostulacionServicio;
+
 /**
  * Reglas de negocio de las postulaciones de freelancers a los proyectos.
  *
@@ -115,12 +116,15 @@ public class PostulacionServicio implements IPostulacionServicio {
         if (aceptadas >= proyecto.getCantidadFreelancer()) {
             throw new NegocioException("El proyecto ya tiene todos los freelancers que necesita");
         }
-        //postulacionRepositorio.actualizarEstado(idPostulacion, EstadoPostulacion.ACEPTADA);
+        postulacion.setEstadoPostulacion(EstadoPostulacion.ACEPTADA);
+        postulacionRepositorio.actualizar(postulacion);
         if (aceptadas + 1 >= proyecto.getCantidadFreelancer()) {
             for (Postulacion otra : todas) {
                 if (otra.getEstadoPostulacion() == EstadoPostulacion.PENDIENTE
                         && !otra.getId().equals(idPostulacion)) {
-                    //postulacionRepositorio.actualizarEstado(otra.getId(), EstadoPostulacion.RECHAZADA);
+                    otra.setEstadoPostulacion(EstadoPostulacion.RECHAZADA);
+                    postulacionRepositorio.actualizar(otra);
+
                 }
             }
         }
@@ -136,10 +140,12 @@ public class PostulacionServicio implements IPostulacionServicio {
         if (postulacion.getEstadoPostulacion() != EstadoPostulacion.ACEPTADA) {
             throw new NegocioException("Solo se puede cancelar la selección de una postulación aceptada");
         }
-        //postulacionRepositorio.actualizarEstado(idPostulacion, EstadoPostulacion.PENDIENTE);
+        postulacion.setEstadoPostulacion(EstadoPostulacion.PENDIENTE);
+postulacionRepositorio.actualizar(postulacion);
         for (Postulacion otra : postulacionRepositorio.listarPorProyecto(postulacion.getProyecto().getId())) {
             if (otra.getEstadoPostulacion() == EstadoPostulacion.RECHAZADA) {
-               // postulacionRepositorio.actualizarEstado(otra.getId(), EstadoPostulacion.PENDIENTE);
+                otra.setEstadoPostulacion(EstadoPostulacion.PENDIENTE);
+postulacionRepositorio.actualizar(otra);
             }
         }
     }
