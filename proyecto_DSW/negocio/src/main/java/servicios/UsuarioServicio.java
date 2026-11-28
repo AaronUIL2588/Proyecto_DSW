@@ -7,6 +7,8 @@ import enumeradores.EstadoVerificacion;
 import interfaces.IUsuarioRepositorio;
 import repositorios.UsuarioRepositorio;
 import interfaces.IUsuarioServicio;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Reglas de negocio de los usuarios: registro, inicio de sesión, perfil y
@@ -20,13 +22,19 @@ import interfaces.IUsuarioServicio;
 public class UsuarioServicio implements IUsuarioServicio {
 
     private final IUsuarioRepositorio usuarioRepositorio;
+    private final CedulaProfesionalServicio cedulaServicio;
 
     public UsuarioServicio() {
-        this(new UsuarioRepositorio());
+        this(new UsuarioRepositorio(), null);
     }
 
     public UsuarioServicio(IUsuarioRepositorio usuarioRepositorio) {
+        this(usuarioRepositorio, null);
+    }
+
+    public UsuarioServicio(IUsuarioRepositorio usuarioRepositorio, CedulaProfesionalServicio cedulaServicio) {
         this.usuarioRepositorio = usuarioRepositorio;
+        this.cedulaServicio = cedulaServicio;
     }
 
     /**
@@ -83,7 +91,23 @@ public class UsuarioServicio implements IUsuarioServicio {
      * Dirección General de Profesiones.
      */
     public boolean verificarCedula(String numero) {
-        return numero != null && numero.matches("\\d{7,8}");
+        if (numero == null || !numero.matches("\\d+")) {
+            return false;
+        }
+
+        if (cedulaServicio == null) {
+            throw new IllegalStateException(
+                    "No se ha configurado el servicio de validación de cédulas."
+            );
+        }
+
+        try {
+            return cedulaServicio.validarCedula(numero);
+        } catch (Exception ex) {
+            System.err.println("Error al validar la cedula: "+ ex.getMessage());;
+        }
+        
+        return false;
     }
 
     /**
